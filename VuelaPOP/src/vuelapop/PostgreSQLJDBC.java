@@ -1,7 +1,6 @@
 package vuelapop;
 
-import com.sun.jdi.connect.spi.Connection;
-import java.beans.Statement;
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
@@ -12,10 +11,10 @@ import java.sql.DriverManager;
  * @date 21/12/2021
  * @version 1.0
  */
-public class Main {
+public class PostgreSQLJDBC {
 
-     public static void main(String args[]) {
-        java.sql.Connection c = null;
+    public static void main(String args[]) {
+        Connection c = null;
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager

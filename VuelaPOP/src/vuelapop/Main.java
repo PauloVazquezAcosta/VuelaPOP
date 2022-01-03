@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vuelapop;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -16,16 +9,51 @@ import java.sql.SQLException;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+    static final String url = "jdbc:postgresql://easybyte.club:2224/VuelaPOP";
+    static final String user = "acarneiro";
+    static final String password = "acarneiro@Servo2021*";
+
     public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://easybyte.club:2224/VuelaPOP", "acarneiro", "acarneiro@Servo2021*")) {
-            System.out.println("Conexion realizada!");
-        }catch (SQLException e) {
-            System.out.println("Conexion fallida.");
-            e.printStackTrace();
-        }
+        Scanner ent = new Scanner(System.in);
+
+        Connect connection = new Connect(url,user,password);
+        connection.connect();
+
+        int op=0;
+        do {
+            op=menu(ent);
+            switch (op) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+            }
+        }while(op!=0);
     }
-    
+
+    static int menu(Scanner ent){
+        int op=0;
+        do{
+            System.out.println("----------------------Menu----------------------\n"+ 
+            "0-Salir del programa \n"+ 
+            "1-Mostrar información general\n"+ 
+            "2-Mostrar información de los pasajeros\n"+ 
+            "3-Ver los pasajeros de un vuelo\n"+ 
+            "4-Insertar nue vo vuelo\n"+ 
+            "5-Borrar vuelo introducido previamente\n"+ 
+            "6-Convertir vuelos de fumadores a no fumadores\n"+ 
+            "------------------------------------------------");
+            op=ent.nextInt();
+        }while(op<0||op>6);
+        return op;
+    }
+
 }

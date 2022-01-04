@@ -17,15 +17,19 @@ public class Main {
         Scanner ent = new Scanner(System.in);
 
         Connect connection = new Connect(url,user,password);
-        connection.connect();
 
         int op=0;
         do {
             op=menu(ent);
             switch (op) {
+                case 0:
+                    System.out.println("Gracias por utilizar el programa. Que tenga un buen dia!");
+                    break;
                 case 1:
+                    connection.mostrarTabla("vuelos");
                     break;
                 case 2:
+                    connection.mostrarTabla("pasajeros");
                     break;
                 case 3:
                     break;

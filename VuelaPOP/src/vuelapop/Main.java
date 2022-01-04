@@ -32,6 +32,12 @@ public class Main {
                     connection.mostrarTabla("pasajeros");
                     break;
                 case 3:
+                    String codigo;
+                    do {
+                        System.out.println("Introduce el codigo del vuelo: ");
+                        codigo = ent.nextLine().toUpperCase();
+                    }while(!comprobarFormato(codigo));
+                    connection.mostrarPasajerosVuelo(codigo);
                     break;
                 case 4:
                     break;
@@ -41,6 +47,7 @@ public class Main {
                     break;
             }
         }while(op!=0);
+        ent.close();
     }
 
     static int menu(Scanner ent){
@@ -51,13 +58,43 @@ public class Main {
             "1-Mostrar información general\n"+ 
             "2-Mostrar información de los pasajeros\n"+ 
             "3-Ver los pasajeros de un vuelo\n"+ 
-            "4-Insertar nue vo vuelo\n"+ 
+            "4-Insertar nuevo vuelo\n"+
             "5-Borrar vuelo introducido previamente\n"+ 
             "6-Convertir vuelos de fumadores a no fumadores\n"+ 
             "------------------------------------------------");
             op=ent.nextInt();
+            ent.nextLine();
         }while(op<0||op>6);
         return op;
     }
 
+
+    static boolean comprobarFormato(String codigo){
+        Boolean formato = true;
+        String param[] = codigo.split("-");
+        try{
+            if(param[0].length()==2 && param[1].length()==2){
+                for(int i = 0;i<param[0].length();i++){
+                    if(!Character.isLetter(param[0].charAt(i))){
+                        formato=false;
+                    }
+                }
+                if(!Character.isLetter(param[1].charAt(0))){
+                    formato=false;
+                }
+                for(int i = 0;i<param[2].length();i++){
+                    if(Character.isLetter(param[2].charAt(i))){
+                        formato=false;
+                    }
+                }
+            }else{
+                formato=false;
+            }
+            if(!formato) System.out.println("El formato introducido no es correcto. Formato correcto: XX-XX-1234");
+        }catch (ArrayIndexOutOfBoundsException aiobe){
+            System.out.println("El formato introducido no es correcto. Formato correcto: XX-XX-1234");
+            formato=false;
+        }
+        return formato;
+    }
 }

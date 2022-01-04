@@ -40,4 +40,34 @@ public class Connect {
             e.printStackTrace();
         }
     }
+
+    public void mostrarPasajerosVuelo(String codigo){
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * from pasajeros where codigo_vuelo='" + codigo + "'");
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            if (resultSet.next() == false) {
+                System.out.println("El codigo introducido no corresponde con ningún vuelo.");
+            }else {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(", ");
+                    String columnValue = resultSet.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                }
+                System.out.println("");
+                while (resultSet.next()) {
+                    for (int i = 1; i <= columnsNumber; i++) {
+                        if (i > 1) System.out.print(", ");
+                        String columnValue = resultSet.getString(i);
+                        System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                    }
+                    System.out.println("");
+                }
+            }
+        }catch (SQLException e) {
+            System.out.println("Conexion fallida.");
+            e.printStackTrace();
+        }
+    }
 }

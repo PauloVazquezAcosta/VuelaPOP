@@ -29,11 +29,11 @@ public class Connect {
             int columnsNumber = rsmd.getColumnCount();
             while (resultSet.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.print(", ");
+                    if (i > 1) System.out.println();
                     String columnValue = resultSet.getString(i);
                     System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
                 }
-                System.out.println("");
+                System.out.println("\n");
             }
         }catch (SQLException e) {
             System.out.println("Conexion fallida.");

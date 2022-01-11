@@ -88,30 +88,36 @@ public class Connect {
 
     public void insertarVuelo(String codigo, String fechaHoraSalida, String destino, String procedencia,
             int plazasFumadores, int plazasNoFumadores, int plazasTurista, int plazasPrimera) {
+
+        System.out.println("INSERT INTO vuelos VALUES ('" + codigo + "', '" + fechaHoraSalida + "', '"
+                + destino + "', '" + procedencia + "', " + plazasFumadores + ", " + plazasNoFumadores + ", "
+                + plazasTurista + ", " + plazasPrimera + ")");
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement
                     .executeQuery("INSERT INTO vuelos VALUES ('" + codigo + "', '" + fechaHoraSalida + "', '"
                             + destino + "', '" + procedencia + "', " + plazasFumadores + ", " + plazasNoFumadores + ", "
                             + plazasTurista + ", " + plazasPrimera + ")");
+            ResultSetMetaData rsmd = resultSet.getMetaData();
         } catch (SQLException e) {
         }
     }
-	
-	    public void borrarVuelo(String codigo) {
-        try{
+
+    public void borrarVuelo(String codigo) {
+        try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("DELETE from vuelos where codigo='" + codigo + "'");
-            ResultSetMetaData rsmd = resultSet .getMetaData();
-        }catch (SQLException e) {
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+        } catch (SQLException e) {
         }
     }
 
-    public void modificarVuelo(){
-        try{
+    public void modificarVuelo() {
+        try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0");
-        }catch (SQLException e){
+            ResultSet resultSet = statement.executeQuery(
+                    "UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0");
+        } catch (SQLException e) {
 
         }
     }

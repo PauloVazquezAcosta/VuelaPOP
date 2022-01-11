@@ -77,20 +77,15 @@ public class Connect {
             ResultSet resultSet = statement.executeQuery("DELETE from vuelos where codigo='" + codigo + "'");
             ResultSetMetaData rsmd = resultSet .getMetaData();
         }catch (SQLException e) {
-            System.out.println("Conexion fallida.");
-            e.printStackTrace();
         }
     }
 
     public void modificarVuelo(){
         try{
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores");
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("UPDATE vuelos SET plazas_no_fumadores = 0");
+            ResultSet resultSet = statement.executeQuery("UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0");
         }catch (SQLException e){
-            System.out.println("Conexion fallida");
-            e.printStackTrace();
+
         }
     }
 }

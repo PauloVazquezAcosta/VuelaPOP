@@ -6,6 +6,7 @@ import java.util.Scanner;
  *
  * @author Paulo
  * @author Adrian Carneiro 
+ * @author Javier Ceballos5
  */
 public class Main {
 
@@ -42,8 +43,14 @@ public class Main {
                 case 4:
                     break;
                 case 5:
+                    do {
+                        System.out.println("Introduce el codigo del vuelo: ");
+                        codigo = ent.nextLine().toUpperCase();
+                    }while(!comprobarFormato(codigo));
+                    connection.borrarVuelo(codigo);
                     break;
                 case 6:
+                    connection.modificarVuelo();
                     break;
             }
         }while(op!=0);

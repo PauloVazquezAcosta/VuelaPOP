@@ -13,6 +13,7 @@ import java.util.Scanner;
  *
  * @author Paulo
  * @author Adrian Carneiro
+ * @author Javier Ceballos
  */
 public class Main {
 
@@ -126,9 +127,15 @@ public class Main {
                             plazasNoFumadores, plazasTurista, plazasPrimera);
                     break;
                 case 5:
-                    break;
+                do {
+                    System.out.println("Introduce el codigo del vuelo: ");
+                    codigo = ent.nextLine().toUpperCase();
+                }while(!comprobarFormato(codigo));
+                connection.borrarVuelo(codigo);
+                break;
                 case 6:
-                    break;
+                connection.modificarVuelo();
+                break;
             }
         } while (op != 0);
         ent.close();

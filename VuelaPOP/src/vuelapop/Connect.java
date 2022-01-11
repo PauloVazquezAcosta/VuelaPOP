@@ -97,4 +97,22 @@ public class Connect {
         } catch (SQLException e) {
         }
     }
+	
+	    public void borrarVuelo(String codigo) {
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("DELETE from vuelos where codigo='" + codigo + "'");
+            ResultSetMetaData rsmd = resultSet .getMetaData();
+        }catch (SQLException e) {
+        }
+    }
+
+    public void modificarVuelo(){
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0");
+        }catch (SQLException e){
+
+        }
+    }
 }

@@ -7,6 +7,15 @@ public class Connect {
     private String url, user, password;
     private Connection connection;
 
+    /**
+     * Método constructor que crea la conexión a la base de datos con los datos de
+     * autenticación
+     * 
+     * @param url      URL a la que se conecte el usuario, la del servidor de la
+     *                 base de datos
+     * @param user     Usuario de conexión a la base de datos
+     * @param password Contraseña del usuario
+     */
     Connect(String url, String user, String password) {
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -21,6 +30,12 @@ public class Connect {
         }
     }
 
+    /**
+     * Método qaue mostrará la tabla de la base de datos que se le envíe por
+     * parámetro
+     * 
+     * @param tabla Nombre de la tabla que se quiere visualizar
+     */
     public void mostrarTabla(String tabla) {
         try {
             Statement statement = connection.createStatement();
@@ -42,6 +57,12 @@ public class Connect {
         }
     }
 
+    /**
+     * Método que consulta los pasajeros de un vuelo determinado e introducido por
+     * código
+     * 
+     * @param codigo Código del vuelo a consultar en la base de datos
+     */
     public void mostrarPasajerosVuelo(String codigo) {
         try {
             Statement statement = connection.createStatement();
@@ -68,6 +89,13 @@ public class Connect {
         }
     }
 
+    /**
+     * Método que comprueba si el vuelo existe en la base de datos para evitar
+     * introducir uno existente y que no haya conflictos con las claves primarias
+     * 
+     * @param codigo Código del vuelo a consultar en la base de datos
+     * @return Devuelve si el vuelo existe o no en la base de datos
+     */
     public boolean existeVuelo(String codigo) {
         Boolean existeVuelo = false;
 
@@ -86,12 +114,23 @@ public class Connect {
         return existeVuelo;
     }
 
+    /**
+     * Método que insertará el vuelo en la base de datos con la información que
+     * reciba del usuario por teclado
+     * 
+     * @param codigo            Código de vuelo
+     * @param fechaHoraSalida   String de la concatenación de fecha y hora de salida
+     *                          del vuelo
+     * @param destino           Ciudad de destino del vuelo
+     * @param procedencia       Ciudad de procedencia del vuelo
+     * @param plazasFumadores   Número de plazas del avión de fumadores
+     * @param plazasNoFumadores Número de plazas del avión no fumadores
+     * @param plazasTurista     Número de plazas del avión de clase turista
+     * @param plazasPrimera     Número de plazas del avión de clase primera
+     */
     public void insertarVuelo(String codigo, String fechaHoraSalida, String destino, String procedencia,
             int plazasFumadores, int plazasNoFumadores, int plazasTurista, int plazasPrimera) {
 
-        System.out.println("INSERT INTO vuelos VALUES ('" + codigo + "', '" + fechaHoraSalida + "', '"
-                + destino + "', '" + procedencia + "', " + plazasFumadores + ", " + plazasNoFumadores + ", "
-                + plazasTurista + ", " + plazasPrimera + ")");
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement
@@ -103,6 +142,12 @@ public class Connect {
         }
     }
 
+    /**
+     * Método que borra de la base de datosa el vuelo cuyo código se introduce por
+     * teclado
+     * 
+     * @param codigo Código del vuelo a borrar
+     */
     public void borrarVuelo(String codigo) {
         try {
             Statement statement = connection.createStatement();
@@ -112,6 +157,10 @@ public class Connect {
         }
     }
 
+    /**
+     * Método que modifica las plazas de pasajeros a fumadores y deja las de no
+     * fumadores a 0
+     */
     public void modificarVuelo() {
         try {
             Statement statement = connection.createStatement();

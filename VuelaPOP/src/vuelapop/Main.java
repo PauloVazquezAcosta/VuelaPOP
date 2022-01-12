@@ -48,33 +48,36 @@ public class Main {
                     do {
                         System.out.print("Introduce el codigo del vuelo: ");
                         codigo = ent.nextLine().toUpperCase();
-                    // Mientras el formato del código no sea el correcto, repite la petición
-                    } while (!comprobarFormato(codigo));
+                        // Mientras el formato del código no sea el correcto, repite la petición
+                    } while (!comprobarFormatoCodigo(codigo));
                     System.out.println();
                     connection.mostrarPasajerosVuelo(codigo);
                     break;
                 case 4:
-                    // Método que inserta un vuelo solicitando todos los datos que se necesitan para los vuelos
+                    // Método que inserta un vuelo solicitando todos los datos que se necesitan para
+                    // los vuelos
                     do {
                         System.out.print("Introduce el codigo del vuelo: ");
                         codigo = ent.nextLine().toUpperCase();
-                    // Mientras el formato no sea correcto o el vuelo exista ya en la base de datos, se repite la petición
-                    } while (!comprobarFormato(codigo) || connection.existeVuelo(codigo));
+                        // Mientras el formato no sea correcto o el vuelo exista ya en la base de datos,
+                        // se repite la petición
+                    } while (!comprobarFormatoCodigo(codigo) || connection.existeVuelo(codigo));
 
                     String fechaSalida;
                     do {
                         System.out.print("Introduce la fecha de salida (formato dd-MM-aaaa): ");
                         fechaSalida = ent.nextLine();
-                    // Mientras la fecha no tenga formato correcto, se repite la petición
+                        // Mientras la fecha no tenga formato correcto, se repite la petición
                     } while (!comprobarFecha(fechaSalida));
                     String horaSalida;
                     do {
                         System.out.print("Introduce la hora de salida (formato HH:mm): ");
                         horaSalida = ent.nextLine();
-                    // Mientras la hora no tenga formato correcto, se repite la petición
+                        // Mientras la hora no tenga formato correcto, se repite la petición
                     } while (!comprobarHora(horaSalida));
 
-                    // Creamos un String con la fecha y la hora para que tenga el formato que acepta la base de datos
+                    // Creamos un String con la fecha y la hora para que tenga el formato que acepta
+                    // la base de datos
                     String fechaHoraSalida = fechaSalida + " " + horaSalida;
 
                     System.out.print("Introduzca el destino del vuelo: ");
@@ -83,6 +86,8 @@ public class Main {
                     System.out.print("Introduzca la procedencia del vuelo: ");
                     String procedencia = ent.nextLine().toUpperCase();
 
+                    // Creamos las variables para las plazas del avión que solicitaremos
+                    // posteriormente
                     int plazasFumadores, plazasNoFumadores, plazasTurista, plazasPrimera;
 
                     do {
@@ -92,6 +97,7 @@ public class Main {
                         } catch (InputMismatchException e) {
                             plazasFumadores = Integer.MIN_VALUE;
                         }
+                        // Repetimos la petición mientras introduzcan un valor menor a 0
                     } while (plazasFumadores < 0);
 
                     do {
@@ -101,6 +107,7 @@ public class Main {
                         } catch (InputMismatchException e) {
                             plazasNoFumadores = Integer.MIN_VALUE;
                         }
+                        // Repetimos la petición mientras introduzcan un valor menor a 0
                     } while (plazasNoFumadores < 0);
 
                     do {
@@ -110,6 +117,7 @@ public class Main {
                         } catch (InputMismatchException e) {
                             plazasTurista = Integer.MIN_VALUE;
                         }
+                        // Repetimos la petición mientras introduzcan un valor menor a 0
                     } while (plazasTurista < 0);
 
                     do {
@@ -119,28 +127,40 @@ public class Main {
                         } catch (InputMismatchException e) {
                             plazasPrimera = Integer.MIN_VALUE;
                         }
+                        // Repetimos la petición mientras introduzcan un valor menor a 0
                     } while (plazasPrimera < 0);
 
                     System.out.println();
 
+                    // Llamamos al método para insertar el vuelo y le enviamos los datos solicitados
+                    // por teclado al usuario
                     connection.insertarVuelo(codigo, fechaHoraSalida, destino, procedencia, plazasFumadores,
                             plazasNoFumadores, plazasTurista, plazasPrimera);
                     break;
                 case 5:
-                do {
-                    System.out.println("Introduce el codigo del vuelo: ");
-                    codigo = ent.nextLine().toUpperCase();
-                }while(!comprobarFormato(codigo));
-                connection.borrarVuelo(codigo);
-                break;
+                    // Solicitamos el código del vuelo a eliminar y repetimos mientras introduzca un
+                    // formato no válido
+                    do {
+                        System.out.println("Introduce el codigo del vuelo: ");
+                        codigo = ent.nextLine().toUpperCase();
+                    } while (!comprobarFormatoCodigo(codigo));
+                    connection.borrarVuelo(codigo);
+                    break;
                 case 6:
-                connection.modificarVuelo();
-                break;
+                    // Llamamos al método que modificará los vuelos de no fumadores a no fumadores
+                    connection.modificarVuelo();
+                    break;
             }
         } while (op != 0);
         ent.close();
     }
 
+    /**
+     * Menú que muestra las opciones con las que el usuario puede interactuar
+     * 
+     * @param ent Enviamos el Scanner que servirá para recibir los datos del teclado
+     * @return el valor de la opción
+     */
     static int menu(Scanner ent) {
         int op = 0;
         do {
@@ -161,7 +181,13 @@ public class Main {
         return op;
     }
 
-    static boolean comprobarFormato(String codigo) {
+    /**
+     * Método que valida el formato del código de vuelo y devuelve si es válido o no
+     * 
+     * @param codigo Código de vuelo a validar
+     * @return Devolverá un boolean que indicará si el formato es válido o no
+     */
+    static boolean comprobarFormatoCodigo(String codigo) {
         Boolean formato = true;
         String param[] = codigo.split("-");
         try {
@@ -191,17 +217,35 @@ public class Main {
         return formato;
     }
 
+    /**
+     * Método que valida el formato de la fecha del vuelo y devuelve si es válido o
+     * no
+     * 
+     * @param fecha Fecha a validar
+     * @return Devolverá un boolean que indicará si el formato es válido o no
+     */
     static boolean comprobarFecha(String fecha) {
+        Boolean formato = true;
+
         try {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             formatter.setLenient(false);
             formatter.parse(fecha);
-            return true;
+            formato = true;
         } catch (ParseException e) {
-            return false;
+            System.out.println("El formato introducido no es correcto. Formato correcto: dd-MM-yyyy");
+            formato = false;
         }
+        return formato;
     }
 
+    /**
+     * Método que valida el formato de la hora del vuelo y devuelve si es válido o
+     * no
+     * 
+     * @param hora Hora a validar
+     * @return Devolverá un boolean que indicará si el formato es válido o no
+     */
     static boolean comprobarHora(String horaString) {
         Boolean formato = true;
 

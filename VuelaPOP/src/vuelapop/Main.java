@@ -243,7 +243,7 @@ public class Main {
      * Método que valida el formato de la hora del vuelo y devuelve si es válido o
      * no
      * 
-     * @param hora Hora a validar
+     * @param horaString Hora a validar
      * @return Devolverá un boolean que indicará si el formato es válido o no
      */
     static boolean comprobarHora(String horaString) {

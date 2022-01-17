@@ -137,7 +137,6 @@ public class Connect {
                     .executeQuery("INSERT INTO vuelos VALUES ('" + codigo + "', '" + fechaHoraSalida + "', '"
                             + destino + "', '" + procedencia + "', " + plazasFumadores + ", " + plazasNoFumadores + ", "
                             + plazasTurista + ", " + plazasPrimera + ")");
-            ResultSetMetaData rsmd = resultSet.getMetaData();
         } catch (SQLException e) {
         }
     }
@@ -152,7 +151,6 @@ public class Connect {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("DELETE from vuelos where codigo='" + codigo + "'");
-            ResultSetMetaData rsmd = resultSet.getMetaData();
         } catch (SQLException e) {
         }
     }
@@ -165,7 +163,7 @@ public class Connect {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0");
+                    "UPDATE vuelos SET plazas_fumadores = plazas_no_fumadores;UPDATE vuelos SET plazas_no_fumadores = 0, UPDATE pasajeros SET fumador = TRUE");
         } catch (SQLException e) {
 
         }
